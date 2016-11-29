@@ -36,7 +36,7 @@ The allowed minified sleds syntax is slightly more restrictive, eliminating opti
 Let's say we create a typescript document, helloWorld.ts: 
 
 ```typescript
-const myMessage = `Hello, world`;
+export const myMessage = `Hello, world`;
 ```
 
 Parsing this document can take the following form at its simplest:
