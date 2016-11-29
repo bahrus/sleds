@@ -33,7 +33,7 @@ The allowed minified sleds syntax is slightly more restrictive, eliminating opti
 
 # Hello world sleds document
 
-Let's say we create a typescript document, helloWorld.ts: 
+Let's say we create a typescript sleds document, helloWorld.sleds.ts: 
 
 ```typescript
 export const myMessage = `Hello, world`;
@@ -42,10 +42,11 @@ export const myMessage = `Hello, world`;
 Parsing this document can take the following form at its simplest:
 
 ```javascript
-const documentString = readString('helloWorld.ts'); //readString is some application function which retrieves the contents of helloWorld.ts.
+const documentString = readString('helloWorld.ts'); // readString is some application function which (synchronously)
+                                                    // retrieves the contents of helloWorld.ts.
 
 const targetObj = {};
-const document = sleds.assign(targetObj, documentString);
+sleds.assign(targetObj, documentString);
 console.log(targetObj);
 // {myMessage: 'Hello, world'}
 ```
@@ -67,5 +68,7 @@ the resultiing targetObj after assigning the sled document would be:
 }
 ```
 
-The example above is the simplest use api, where an entire string dump of the source document is passed in.  Alternative signatures should be available where the document is passed in as a [stream] (https://streams.spec.whatwg.org/).
+The example above is the simplest use api, where an entire string dump of the source document is passed in, and it is applied to the target object synchronously.  
+
+Alternative signatures should be available where the document is passed in as a [stream] (https://streams.spec.whatwg.org/), and processed asynchronously.
 
