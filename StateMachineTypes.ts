@@ -1,12 +1,12 @@
 interface Line{
-    PreviousLine?: Line,
-    ConditionsToQualify?: Condition[],
+    previousLine?: Line,
+    conditionsToQualify?: Condition[],
     id?: String,
+    openCharSequence?: openChar[],
+    lineNumber?: number,
 }
 
-interface StatementLine{
-    OpenCharSequence: openChar[];
-}
+
 
 type openChar = '{' | '[';
 
@@ -21,6 +21,8 @@ interface Condition{
     mustEndWith?: string,
     mustStartWith?: string,
     length?: number,
+    lineTest?: (line: Line) => boolean;
+    actionIfTrue?: (line: Line) => void;
 }
 
 interface NextLineRule{

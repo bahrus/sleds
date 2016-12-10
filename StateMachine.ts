@@ -1,10 +1,16 @@
 ///<reference path="StateMachineTypes.ts"/>
+///<reference path="StateMachineHelper.ts"/>
+//declare 
+
+const constantKey = `const `;
+const exportKey = 'export ';
+
 
 //AddId
 export const LineTypes = {
     AliasConstant:{} as Line,
     BodyComment:{
-        ConditionsToQualify:[
+        conditionsToQualify:[
             {
                 afterTrimming: LeftRightBoth.Left,
                 mustStartWith: '*'
@@ -12,17 +18,25 @@ export const LineTypes = {
         ]
     } as Line,
     ClosingComment:{
-        ConditionsToQualify:[
+        conditionsToQualify:[
             {
                 afterTrimming: LeftRightBoth.Right,
-                mustEndWith: '*/'
+                mustEndWith: `*/`
             }
         ]
     } as Line,
-    ClosingObjectConstant:{} as Line,
+    ClosingObjectConstant:{
+        conditionsToQualify:[
+            {
+                afterTrimming: LeftRightBoth.Left,
+                mustEndWith: '}',
+                //actionIfTrue: 
+            }
+        ]
+    } as Line,
     ClosingObjectPropertyValue:{} as Line,
     EmptyLine:{
-        ConditionsToQualify:[
+        conditionsToQualify:[
             {
                 afterTrimming: LeftRightBoth.Both,
                 length: 0
@@ -31,9 +45,36 @@ export const LineTypes = {
     } as Line,
     ObjectPropertyValue:{} as Line,
     OpenComment:{
-        trimLeft: true,
-        startsWith: '/*'
+        conditionsToQualify:[
+            {
+                afterTrimming: LeftRightBoth.Left,
+                mustStartWith: `/*`
+            }
+        ]
     } as Line,
+    OpenArrayExportConstant:{
+        conditionsToQualify:[
+            {
+                afterTrimming: LeftRightBoth.Both,
+                mustEndWith: '['
+            },
+            {
+                mustStartWith: exportKey + constantKey
+            }
+        ]
+    } as Line,
+    OpenArrayLocalConstant:{
+        conditionsToQualify:[
+            {
+                afterTrimming: LeftRightBoth.Both,
+                mustEndWith: '['
+            },
+            {
+                mustStartWith: constantKey
+            }
+        ]
+    } as Line,
+    OpenArrayPropertyValue:{} as Line,
     OpenObjectConstant:{} as Line,
     OpenObjectPropertyValue:{} as Line,
     PrimitiveConstant:{} as Line,
