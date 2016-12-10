@@ -1,6 +1,8 @@
 ///<reference path="StateMachineTypes.ts"/>
+
+//AddId
 export const LineTypes = {
-    AliasConstant:{},
+    AliasConstant:{} as Line,
     BodyComment:{
         ConditionsToQualify:[
             {
@@ -17,8 +19,8 @@ export const LineTypes = {
             }
         ]
     } as Line,
-    ClosingObjectConstant:{},
-    ClosingObjectPropertyValue:{},
+    ClosingObjectConstant:{} as Line,
+    ClosingObjectPropertyValue:{} as Line,
     EmptyLine:{
         ConditionsToQualify:[
             {
@@ -27,23 +29,23 @@ export const LineTypes = {
             }
         ]
     } as Line,
-    ObjectPropertyValue:{},
+    ObjectPropertyValue:{} as Line,
     OpenComment:{
         trimLeft: true,
         startsWith: '/*'
     } as Line,
-    OpenObjectConstant:{},
-    OpenObjectPropertyValue:{},
-    PrimitiveConstant:{},
-    PrimitivePropertyValue:{},
-    AllowedLineSequences: null,
+    OpenObjectConstant:{} as Line,
+    OpenObjectPropertyValue:{} as Line,
+    PrimitiveConstant:{} as Line,
+    PrimitivePropertyValue:{} as Line,
+    AllowedNextLineRules: [] as NextLineRule[],
 }
 
 const lt = LineTypes;
 const openStatements = [lt.EmptyLine, lt.OpenComment, lt.OpenObjectConstant, lt.PrimitiveConstant];
 const objectLiteralLines = [lt.PrimitivePropertyValue, lt.OpenObjectPropertyValue, lt.ClosingComment]
 
-LineTypes.AllowedLineSequences = [
+LineTypes.AllowedNextLineRules = [
     {
         PreviousLineType: null,
         PossibleLineTypes: openStatements,
